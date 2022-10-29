@@ -1,3 +1,16 @@
+import {
+  TextInput,
+  PasswordInput,
+  Checkbox,
+  Anchor,
+  Paper,
+  Title,
+  Text,
+  Container,
+  Group,
+  Button,
+} from '@mantine/core';
+
 import { route } from '@'
 
 import { useToggle, upperFirst } from '@mantine/hooks'
@@ -37,106 +50,31 @@ export const RequestPage = route('/request',props => {
     },
   })
   return (
+    <Container size={820} my={40}>
+    <Title
+      align="center"
+      sx={(theme) => ({ fontFamily: `Greycliff CF, ${theme.fontFamily}`, fontWeight: 900 })}
+    >
+      Join the Network of Agencies
+    </Title>
 
-    <div>
-     <Paper
-        radius="md"
-        p="xl"
-        withBorder
-        {...props}
-        sx={{
-          background: 'white',
-          width: 500,
-          '@media (max-width: 755px)': {
-            width: '90%',
-          },
-          marginRight: 'auto',
-          marginLeft: 'auto',
-        }}
-      >
-        <Text size="lg" weight={500} sx={{ paddingBottom: 30 }}>
-          Request member ship
-        </Text>
+    <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+    <TextInput label="Agency Name" placeholder="Red Cross" required />
+    <TextInput label="Brief Description" placeholder="Non-profit humanitarian organization that provides emergency assistance" required mt="md"/>
+      <TextInput label="Website" placeholder="redcross.org" required mt="md"/>
+      <TextInput label="Email" type="email" placeholder="contact@redcross.com" required mt="md"/>
+      <TextInput label="Phone" type="phone" placeholder="+1 404 123 4567" required mt="md"/>
+      <TextInput label="Social" type="text" placeholder="@redcross" mt="md"/>
 
-        <form onSubmit={form.onSubmit(() => {})}>
-          <Stack>
-            {/* Name */}
-            <TextInput
-              required
-              label="Name"
-              placeholder="Name"
-              value={form.values.name}
-              onChange={event =>
-                form.setFieldValue('Name', event.currentTarget.value)
-              }
-              error={form.errors.Name && 'Invalid Name'}
-            />
-            {/* phone */}
-            <TextInput
-              required
-              label="phone"
-              placeholder="phone"
-              value={form.values.phone}
-              onChange={event =>
-                form.setFieldValue('phone', event.currentTarget.value)
-              }
-              error={form.errors.phone && 'Invalid phone'}
-            />
-            {/* image */}
-            <TextInput
-              required
-              label="image"
-              placeholder="image"
-              value={form.values.image}
-              onChange={event =>
-                form.setFieldValue('image', event.currentTarget.value)
-              }
-              error={form.errors.image && 'Invalid email'}
-            />
-            {/* country */}
-            <TextInput
-              required
-              label="countries"
-              placeholder="countries"
-              value={form.values.country}
-              onChange={event =>
-                form.setFieldValue('country', event.currentTarget.value)
-              }
-              error={form.errors.country && 'Invalid country'}
-            />
-            {/* description */}
-            <TextInput
-              required
-              label="description"
-              placeholder="description"
-              value={form.values.description}
-              onChange={event =>
-                form.setFieldValue('description', event.currentTarget.value)
-              }
-              error={form.errors.description && 'Invalid description'}
-            />
-             {/* Password */}
-            <PasswordInput
-              required
-              label="Password"
-              placeholder="Your password"
-              value={form.values.password}
-              onChange={event =>
-                form.setFieldValue('password', event.currentTarget.value)
-              }
-              error={
-                form.errors.password &&
-                'Password should include at least 6 characters'
-              }
-            />
-          </Stack>
-
-          <Group position="apart" mt="xl">
-            <Button type="submit">{upperFirst('Request member')}</Button>
-          </Group>
-        </form>
-      </Paper>
-  
-  </div>
+      <Group position="apart" mt="md">
+        <TextInput label="Countries of Activity" placeholder="US, UK, CA" />
+        <Checkbox label="Worldwide Availibility" />
+      </Group>
+      <Button fullWidth mt="xl">
+        Request Join
+      </Button>
+    </Paper>
+  </Container>
       )
 })
+
