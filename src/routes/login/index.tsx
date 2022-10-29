@@ -1,6 +1,9 @@
 import { route } from '@'
 import { useToggle, upperFirst } from '@mantine/hooks'
 import { useForm } from '@mantine/form'
+import { useLogin } from 'ctx'
+import { Alert } from '@mantine/core'
+import { IconAlertCircle } from '@tabler/icons'
 import {
   TextInput,
   PasswordInput,
@@ -16,6 +19,8 @@ import {
 } from '@mantine/core'
 
 export const LoginPage = route('/login', props => {
+  const { login, loading, error } = useLogin()
+
   const form = useForm({
     initialValues: {
       email: '',
@@ -27,11 +32,12 @@ export const LoginPage = route('/login', props => {
     validate: {
       email: val => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
       password: val =>
-        val.length <= 6
+        val.length <= 0
           ? 'Password should include at least 6 characters'
           : null,
     },
   })
+
   return (
     <div>
       <Paper
@@ -54,7 +60,11 @@ export const LoginPage = route('/login', props => {
           Welcome, Login with
         </Text>
 
-        <form onSubmit={form.onSubmit(() => {})}>
+        <form
+          onSubmit={form.onSubmit(() => {
+            login(form.values.email, form.values.password)
+          })}
+        >
           <Stack>
             <TextInput
               required
@@ -82,8 +92,22 @@ export const LoginPage = route('/login', props => {
             />
           </Stack>
 
+          {error ? (
+            <Alert
+              icon={<IconAlertCircle size={16} />}
+              title="Error!"
+              color="red"
+              variant="filled"
+              sx={{ marginTop: 20 }}
+            >
+              {error}
+            </Alert>
+          ) : null}
+
           <Group position="apart" mt="xl">
-            <Button type="submit">{upperFirst('login')}</Button>
+            <Button type="submit" loading={loading}>
+              {upperFirst('login')}
+            </Button>
           </Group>
         </form>
       </Paper>

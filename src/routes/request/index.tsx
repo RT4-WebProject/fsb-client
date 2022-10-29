@@ -13,8 +13,42 @@ import {
 
 import { route } from '@'
 
+import { useToggle, upperFirst } from '@mantine/hooks'
+import { useForm } from '@mantine/form'
+import {
+  TextInput,
+  PasswordInput,
+  Text,
+  Paper,
+  Group,
+  PaperProps,
+  Button,
+  Divider,
+  Checkbox,
+  Anchor,
+  Stack,
+} from '@mantine/core'
+export const RequestPage = route('/request',props => {
+  const form = useForm({
+    initialValues: {
+      email: '',
+      name: '',
+      phone: '',
+      image:'',
+      country:'',
+      description:'',
+      password: '',
+      terms: true,
+    },
 
-export const RequestPage = route('/request', () => {
+    validate: {
+      email: val => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
+      password: val =>
+        val.length <= 6
+          ? 'Password should include at least 6 characters'
+          : null,
+    },
+  })
   return (
     <Container size={820} my={40}>
     <Title

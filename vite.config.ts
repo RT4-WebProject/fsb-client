@@ -6,6 +6,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src/core',
+      ctx: '/src/contexts',
     },
   },
   plugins: [react()],
