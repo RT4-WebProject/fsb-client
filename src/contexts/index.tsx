@@ -14,6 +14,7 @@ interface IContext {
   authentified: null | boolean
   login: any
   logout: any
+  getAllAgencies: any
 }
 
 const Context = createContext<IContext>({
@@ -21,6 +22,7 @@ const Context = createContext<IContext>({
   authentified: null,
   login: {},
   logout: {},
+  getAllAgencies: {},
 })
 
 function useLoginCore(cb, ecb) {
@@ -70,10 +72,45 @@ export function useGetMe() {
   return { me, authentified }
 }
 
+export function useGetAgenciesCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [agencies, setAgencies] = useState<any>(null)
+
+  const getAgencies = useCallback(() => {
+    setLoading(true)
+    return api
+      .getAllAgencies()
+      .then(v => {
+        setAgencies(v)
+        setLoading(false)
+      })
+      .catch(e => {
+        setLoading(false)
+        setError(
+          e.response?.data?.message ? e.response.data.message : e.message
+        )
+      })
+  }, [setLoading, setError, setAgencies])
+
+  return {
+    getAgencies,
+    loading,
+    error,
+    agencies,
+  }
+}
+
+export function useGetAllAgencies() {
+  const { getAllAgencies } = useContext(Context)
+  return getAllAgencies
+}
+
 export function ContextProvider({ children }) {
   const [me, setMe] = useState(null)
   const goto = useNavigate()
   const [authentified, setAuthetified] = useState<null | boolean>(null)
+  const getAllAgencies = useGetAgenciesCore()
 
   const login = useLoginCore(
     () => {
@@ -117,8 +154,8 @@ export function ContextProvider({ children }) {
   }, [setAuthetified, setMe])
 
   const value = useMemo(
-    () => ({ me, authentified, login, logout }),
-    [me, authentified, login, logout]
+    () => ({ me, authentified, login, logout, getAllAgencies }),
+    [me, authentified, login, logout, getAllAgencies]
   )
 
   return <Context.Provider value={value}>{children}</Context.Provider>

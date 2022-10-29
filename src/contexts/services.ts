@@ -16,3 +16,8 @@ export const login = (email, password) =>
   createClient()
     .post('/login', { email, password })
     .then(res => res.data)
+
+export const getAllAgencies = () =>
+  createClient()
+    .get('/agency')
+    .then(res => res.data)
