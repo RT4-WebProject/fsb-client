@@ -10,7 +10,6 @@ import {
   ScrollArea,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { MantineLogo } from '@mantine/ds'
 import { Logo } from '../logo'
 
 export function Navbar() {
@@ -46,13 +45,13 @@ export function Navbar() {
               Campaigns
             </a>
             <a href="#" className={classes.link}>
-              Crises Map
+              Heat Map
             </a>
           </Group>
 
           <Group className={classes.hiddenMobile}>
             <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            <Button>Join the Pool</Button>
           </Group>
 
           <Burger
@@ -82,10 +81,13 @@ export function Navbar() {
             Home
           </a>
           <a href="#" className={classes.link}>
-            Learn
+            Agencies
           </a>
           <a href="#" className={classes.link}>
-            Academy
+            Campaigns
+          </a>
+          <a href="#" className={classes.link}>
+            Heat Map
           </a>
 
           <Divider
@@ -95,7 +97,7 @@ export function Navbar() {
 
           <Group position="center" grow pb="xl" px="md">
             <Button variant="default">Log in</Button>
-            <Button>Sign up</Button>
+            <Button>Join the Pool</Button>
           </Group>
         </ScrollArea>
       </Drawer>
