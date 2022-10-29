@@ -7,6 +7,7 @@ import {
   Group,
 } from '@mantine/core'
 import { NotFoundIcon, route } from '@'
+import { Link } from 'react-router-dom'
 
 export const FourOFourPage = route('*', () => {
   const { classes } = useStyles()
@@ -27,7 +28,9 @@ export const FourOFourPage = route('*', () => {
             this is an error contact support.
           </Text>
           <Group position="center">
-            <Button size="md">Take me back to home page</Button>
+            <Button to="/" size="md" component={Link}>
+              Take me back to home page
+            </Button>
           </Group>
         </div>
       </div>

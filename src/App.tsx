@@ -6,7 +6,7 @@ import { FourOFourPage } from './routes/404'
 
 function App() {
   return (
-    <div>
+    <div style={{ backgroundColor: '#e5e5e5', minHeight: '100vh' }}>
       <Router>
         <Navbar />
         <Routes>

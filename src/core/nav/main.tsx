@@ -8,8 +8,10 @@ import {
   Burger,
   Drawer,
   ScrollArea,
+  NavLink,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
+import { Link } from 'react-router-dom'
 import { Logo } from '../logo'
 
 export function Navbar() {
@@ -26,7 +28,13 @@ export function Navbar() {
         zIndex: 10,
       }}
     >
-      <Header height={60} px="md">
+      <Header
+        height={60}
+        px="md"
+        sx={{
+          backgroundColor: 'white',
+        }}
+      >
         <Group position="apart" sx={{ height: '100%' }}>
           <Logo />
 
@@ -50,8 +58,12 @@ export function Navbar() {
           </Group>
 
           <Group className={classes.hiddenMobile}>
-            <Button variant="default">Log in</Button>
-            <Button>Join the Pool</Button>
+            <Button variant="default" component={Link} to="/login">
+              Log in
+            </Button>
+            <Button component={Link} to="/join">
+              Join the Pool
+            </Button>
           </Group>
 
           <Burger
@@ -67,7 +79,7 @@ export function Navbar() {
         onClose={closeDrawer}
         size="100%"
         padding="md"
-        title="Navigation"
+        title="Taiii"
         className={classes.hiddenDesktop}
         zIndex={1000000}
       >
@@ -96,8 +108,12 @@ export function Navbar() {
           />
 
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default">Log in</Button>
-            <Button>Join the Pool</Button>
+            <Button variant="default" component={Link} to="/login">
+              Log in
+            </Button>
+            <Button component={Link} to="/join">
+              Join the Pool
+            </Button>
           </Group>
         </ScrollArea>
       </Drawer>
