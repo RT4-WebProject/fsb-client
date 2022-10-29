@@ -61,7 +61,7 @@ export function Navbar() {
             <Button variant="default" component={Link} to="/login">
               Log in
             </Button>
-            <Button component={Link} to="/join">
+            <Button component={Link} to="/request">
               Join the Pool
             </Button>
           </Group>
@@ -111,7 +111,7 @@ export function Navbar() {
             <Button variant="default" component={Link} to="/login">
               Log in
             </Button>
-            <Button component={Link} to="/join">
+            <Button component={Link} to="/request">
               Join the Pool
             </Button>
           </Group>
