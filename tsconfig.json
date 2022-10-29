@@ -17,7 +17,7 @@
     "jsx": "react-jsx",
     "noImplicitAny": false,
     "paths": {
-      "@": ["src/core/index.ts"]
+      "@": ["/src/core/index.ts"]
     }
   },
   "include": ["src"],

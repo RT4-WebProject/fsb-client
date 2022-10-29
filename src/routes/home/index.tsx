@@ -1,5 +1,10 @@
-import { route } from '@'
+import { route, TxList } from '@'
+
 
 export const HomePage = route('/home', () => {
-  return <div>Home Page</div>
+  return 
+  <div>Home Page 
+    
+    <TxList/>
+  </div>
 })
