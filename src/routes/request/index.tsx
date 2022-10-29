@@ -1,7 +1,12 @@
-import React from 'react'
+import { route } from '@'
 
-export default function index() {
+
+export const RequestPage = route('/request', () => {
   return (
-    <div>index</div>
-  )
-}
+
+    <div>
+    Request page
+  
+  </div>
+      )
+})
