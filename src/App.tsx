@@ -1,4 +1,3 @@
-import { Text } from '@mantine/core'
 import { BrowserRouter as Router, Routes } from 'react-router-dom'
 import { Navbar } from '@'
 import * as routes from './routes'
