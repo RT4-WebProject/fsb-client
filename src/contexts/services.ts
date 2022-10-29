@@ -1,7 +1,7 @@
 import axios from 'axios'
 const createClient = () =>
   axios.create({
-    baseURL: 'http://localhots:4000',
+    baseURL: 'http://localhost:4000/api',
     headers: {
       authorization: 'Bearer ' + localStorage.getItem('token'),
     },

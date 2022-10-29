@@ -13,12 +13,14 @@ interface IContext {
   me: any
   authentified: null | boolean
   login: any
+  logout: any
 }
 
 const Context = createContext<IContext>({
   me: null,
   authentified: null,
   login: {},
+  logout: {},
 })
 
 function useLoginCore(cb, ecb) {
@@ -36,11 +38,13 @@ function useLoginCore(cb, ecb) {
           setLoading(false)
           if (cb) cb()
           if (v.role === 'admin') goto('/admin')
-          else goto('/dashboard')
+          else goto('/dash')
         })
         .catch(e => {
-          console.log(e.data)
           setLoading(false)
+          setError(
+            e.response?.data?.message ? e.response.data.message : e.message
+          )
           if (ecb) ecb()
         })
     },
@@ -59,6 +63,11 @@ export function useLogin() {
   return login
 }
 
+export function useLogout() {
+  const { logout } = useContext(Context)
+  return logout
+}
+
 export function useGetMe() {
   const { me, authentified } = useContext(Context)
   return { me, authentified }
@@ -66,6 +75,7 @@ export function useGetMe() {
 
 export function ContextProvider({ children }) {
   const [me, setMe] = useState(null)
+  const goto = useNavigate()
   const [authentified, setAuthetified] = useState<null | boolean>(null)
 
   const login = useLoginCore(
@@ -100,9 +110,16 @@ export function ContextProvider({ children }) {
       })
   }, [])
 
+  const logout = useCallback(() => {
+    localStorage.removeItem('token')
+    setAuthetified(false)
+    setMe(null)
+    goto('/login')
+  }, [setAuthetified, setMe])
+
   const value = useMemo(
-    () => ({ me, authentified, login }),
-    [me, authentified, login]
+    () => ({ me, authentified, login, logout }),
+    [me, authentified, login, logout]
   )
 
   return <Context.Provider value={value}>{children}</Context.Provider>

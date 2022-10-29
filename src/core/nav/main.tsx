@@ -13,11 +13,16 @@ import {
 import { useDisclosure } from '@mantine/hooks'
 import { Link } from 'react-router-dom'
 import { Logo } from '../logo'
+import { useGetMe, useLogout } from 'ctx'
 
 export function Navbar() {
+  const { authentified, me } = useGetMe()
+  const logout = useLogout()
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false)
   const { classes, theme } = useStyles()
+
+  if (authentified === null) return null
 
   return (
     <Box
@@ -56,14 +61,29 @@ export function Navbar() {
             </a>
           </Group>
 
-          <Group className={classes.hiddenMobile}>
-            <Button variant="default" component={Link} to="/login">
-              Log in
-            </Button>
-            <Button component={Link} to="/request">
-              Join the Pool
-            </Button>
-          </Group>
+          {authentified ? (
+            <Group className={classes.hiddenMobile}>
+              <Button
+                variant="default"
+                component={Link}
+                to={me.role === 'admin' ? '/admin' : '/dash'}
+              >
+                Dashboard
+              </Button>
+              <Button color="red" onClick={logout}>
+                Logout
+              </Button>
+            </Group>
+          ) : (
+            <Group className={classes.hiddenMobile}>
+              <Button variant="default" component={Link} to="/login">
+                Log in
+              </Button>
+              <Button component={Link} to="/request">
+                Join the Pool
+              </Button>
+            </Group>
+          )}
 
           <Burger
             opened={drawerOpened}
@@ -105,14 +125,30 @@ export function Navbar() {
             my="sm"
             color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
           />
-
           <Group position="center" grow pb="xl" px="md">
-            <Button variant="default" component={Link} to="/login">
-              Log in
-            </Button>
-            <Button component={Link} to="/request">
-              Join the Pool
-            </Button>
+            {authentified ? (
+              <>
+                <Button
+                  variant="default"
+                  component={Link}
+                  to={me.role === 'admin' ? '/admin' : '/dash'}
+                >
+                  Dashboard
+                </Button>
+                <Button color="red" onClick={logout}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="default" component={Link} to="/login">
+                  Log in
+                </Button>
+                <Button component={Link} to="/request">
+                  Join the Pool
+                </Button>
+              </>
+            )}
           </Group>
         </ScrollArea>
       </Drawer>

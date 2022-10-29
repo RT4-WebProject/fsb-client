@@ -32,7 +32,7 @@ export const LoginPage = route('/login', props => {
     validate: {
       email: val => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
       password: val =>
-        val.length <= 6
+        val.length <= 0
           ? 'Password should include at least 6 characters'
           : null,
     },
@@ -97,6 +97,8 @@ export const LoginPage = route('/login', props => {
               icon={<IconAlertCircle size={16} />}
               title="Error!"
               color="red"
+              variant="filled"
+              sx={{ marginTop: 20 }}
             >
               {error}
             </Alert>
