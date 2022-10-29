@@ -46,7 +46,7 @@ export const HomePage = route('/', () => {
             marginBottom: '40px',
           }}
         >
-          <Grid.Col span={6}>
+          <Grid.Col span={4}>
             <StatsRingCard
               title={'Campaign 1'}
               completed={3400}
@@ -56,7 +56,7 @@ export const HomePage = route('/', () => {
               link="test.com"
             />
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={4}>
             <StatsRingCard
               title={'Campaign 2'}
               completed={450}
@@ -66,7 +66,7 @@ export const HomePage = route('/', () => {
               link="test.com"
             />
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={4}>
             <StatsRingCard
               title={'Campaign 3'}
               completed={1200}
@@ -89,8 +89,6 @@ export const HomePage = route('/', () => {
       <FeaturesAsymmetrical />
 
       <FaqWithBg />
-
-      <FooterLinks data={[]} />
 
       <FooterLinks data={[]} />
     </div>

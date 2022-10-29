@@ -47,7 +47,7 @@ export function Navbar() {
             spacing={0}
             className={classes.hiddenMobile}
           >
-            <a href="/home" className={classes.link}>
+            <a href="/" className={classes.link}>
               Home
             </a>
             <a href="#" className={classes.link}>
