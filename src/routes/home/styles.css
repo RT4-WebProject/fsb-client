@@ -1,0 +1,13 @@
+.container {
+    margin-right: 40px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+    margin-top: -40px;
+}
+
+@media (max-width: 755px){
+    .container { 
+        margin-left: 0;
+        margin-right: 0;
+    }
+}

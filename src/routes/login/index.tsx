@@ -42,6 +42,7 @@ export const LoginPage = route('/login', props => {
     <div>
       <Paper
         radius="md"
+        mt={120}
         p="xl"
         withBorder
         {...props}

@@ -1,90 +1,117 @@
-import {
-  Box,
-  Button,
-  createStyles,
-  Paper,
-  Progress,
-  Text,
-  ThemeIcon,
-} from '@mantine/core'
-import { IconColorSwatch } from '@tabler/icons'
+import { createStyles, Text, Card, RingProgress, Group, Button } from '@mantine/core';
 
-interface CardGradientProps {
-  title: string
-  description: string
-}
+const formatter = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
 
-export function CampaignCard({ title, description }: CardGradientProps) {
-  const { classes } = useStyles()
-  return (
-    <Paper withBorder radius="md" className={classes.card}>
-      <ThemeIcon
-        size="xl"
-        radius="md"
-        variant="gradient"
-        gradient={{ deg: 0, from: 'pink', to: 'orange' }}
-      >
-        <IconColorSwatch size={28} stroke={1.5} />
-      </ThemeIcon>
-      <Text size="xl" weight={500} mt="md">
-        {title}
-      </Text>
-      <Text size="sm" mt="sm" color="dimmed">
-        {description}
-      </Text>
+  // These options are needed to round to whole numbers if that's what you want.
+  //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
+  //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
+});
 
-      <Box
-        sx={{
-          marginTop: 20,
-        }}
-      >
-        <Text size="xs" transform="uppercase" weight={700} color="dimmed">
-          Campaign Goal
-        </Text>
-        <Text size="lg" weight={500}>
-          $5.431 / $10.000
-        </Text>
-        <Progress value={54.31} mt="md" size="lg" radius="xl" color="green" />
-      </Box>
-      <Button
-        sx={{
-          marginTop: 20,
-        }}
-        variant="gradient"
-        gradient={{ deg: 0, from: 'pink', to: 'orange' }}
-      >
-        Donate to this campaign
-      </Button>
-    </Paper>
-  )
-}
 
-const useStyles = createStyles(theme => ({
+const useStyles = createStyles((theme) => ({
   card: {
-    position: 'relative',
-    cursor: 'pointer',
-    overflow: 'hidden',
-    transition: 'transform 150ms ease, box-shadow 100ms ease',
-    padding: theme.spacing.xl,
-    paddingLeft: theme.spacing.xl * 2,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+  },
 
-    '&:hover': {
-      boxShadow: theme.shadows.md,
-      transform: 'scale(1.02)',
-    },
+  label: {
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    fontWeight: 700,
+    lineHeight: 1,
+  },
 
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      width: 6,
-      backgroundImage: theme.fn.linearGradient(
-        0,
-        theme.colors.pink[6],
-        theme.colors.orange[6]
-      ),
+  lead: {
+    fontFamily: `Greycliff CF, ${theme.fontFamily}`,
+    fontWeight: 700,
+    fontSize: 22,
+    lineHeight: 1,
+  },
+
+  inner: {
+    display: 'flex',
+
+    [theme.fn.smallerThan(350)]: {
+      flexDirection: 'column',
     },
   },
-}))
+
+  ring: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
+
+    [theme.fn.smallerThan(350)]: {
+      justifyContent: 'center',
+      marginTop: theme.spacing.md,
+    },
+  },
+}));
+
+interface StatsRingCardProps {
+  title: string;
+  completed: number;
+  total: number;
+  stats: {
+    value: number;
+    label: string;
+  }[];
+  agency: string;
+  link: string;
+}
+
+export function StatsRingCard({ title, completed, total, stats, agency, link }: StatsRingCardProps) {
+  const { classes, theme } = useStyles();
+  const items = stats.map((stat) => (
+    <div key={stat.label}>
+      <Text className={classes.label}>{stat.value}</Text>
+      <Text size="xs" color="dimmed">
+        {stat.label}
+      </Text>
+    </div>
+  ));
+
+  return (
+    <Card withBorder p="xl" radius="md" className={classes.card}>
+      <div className={classes.inner}>
+        <div>
+          <Text size="xl" className={classes.label}>
+            {title}
+          </Text>
+          <div>
+            <Text className={classes.lead} mt={30}>
+              {formatter.format(completed)}
+            </Text>
+            <Text size="xs" color="dimmed">
+              Raised
+            </Text>
+            <Text size="md">
+              {agency}
+            </Text>
+            <Button mt={5} onClick={()=>window.open(link)}>Take Part</Button>
+          </div>
+          <Group mt="lg">{items}</Group>
+        </div>
+
+        <div className={classes.ring}>
+          <RingProgress
+            roundCaps
+            thickness={6}
+            size={150}
+            sections={[{ value: (completed / total) * 100, color: theme.primaryColor }]}
+            label={
+              <div>
+                <Text align="center" size="lg" className={classes.label} sx={{ fontSize: 22 }}>
+                  {((completed / total) * 100).toFixed(0)}%
+                </Text>
+                <Text align="center" size="xs" color="dimmed">
+                  Completed
+                </Text>
+              </div>
+            }
+          />
+        </div>
+      </div>
+    </Card>
+  );
+}

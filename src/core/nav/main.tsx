@@ -21,7 +21,6 @@ export function Navbar() {
 
   return (
     <Box
-      pb={120}
       sx={{
         position: 'sticky',
         top: 0,
@@ -43,7 +42,7 @@ export function Navbar() {
             spacing={0}
             className={classes.hiddenMobile}
           >
-            <a href="#" className={classes.link}>
+            <a href="/home" className={classes.link}>
               Home
             </a>
             <a href="#" className={classes.link}>
