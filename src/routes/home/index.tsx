@@ -1,7 +1,8 @@
 import { CampaignCard, DashboardStatistics, route, TxList } from '@'
-import { Paper, Grid, Container, Footer, Title } from '@mantine/core'
+import { Paper, Grid, Footer, Title, SimpleGrid } from '@mantine/core'
 import { StatsRingCard } from '../../core'
 import { FaqWithBg } from '../../core/faq'
+import { FeaturesAsymmetrical } from '../../core/features'
 import { FooterLinks } from '../../core/footer'
 import { HeroImageBackground } from '../../core/hero'
 import { HeatMap } from '../../core/map'
@@ -33,17 +34,19 @@ export const HomePage = route('/home', () => {
       <Title align="center" style={{ marginBottom: '40px' }}>
             Currently Running Campaigns
       </Title>
+      <SimpleGrid cols={1} spacing="md" breakpoints={[{ maxWidth: 'xs', cols: 1 }]}>
       <Grid style={{ marginLeft: '40px', marginRight: '40px', marginBottom: '40px' }}>
-        <Grid.Col span={4}>
+        <Grid.Col span={6}>
           <StatsRingCard title={'Campaign 1'} completed={3400} total={10500} stats={[]} agency="Agency 123" link="test.com"/>
         </Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={6}>
           <StatsRingCard title={'Campaign 2'} completed={450} total={1000} stats={[]} agency="Test" link="test.com"/>
         </Grid.Col>
-        <Grid.Col span={4}>
+        <Grid.Col span={6}>
           <StatsRingCard title={'Campaign 3'} completed={1200} total={2000} stats={[]} agency="Red Cross" link="test.com"/>
         </Grid.Col>
       </Grid>
+      </SimpleGrid>
 
       <Title align="center" style={{ marginBottom: '40px' }}>
             Realtime Crisis Heatmap
@@ -52,7 +55,9 @@ export const HomePage = route('/home', () => {
         <HeatMap />
       <DashboardStatistics data={[]} />
 
-        
+
+        <FeaturesAsymmetrical />
+
         <FaqWithBg/>
 
         <FooterLinks data={[]} />

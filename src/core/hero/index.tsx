@@ -113,10 +113,10 @@ export function HeroImageBackground() {
 
         <div className={classes.controls}>
           <Button className={classes.control} variant="white" size="lg">
-            Agency Registration
+            Donate
           </Button>
           <Button className={cx(classes.control, classes.secondaryControl)} size="lg">
-            Learn More
+            Agency Registration
           </Button>
         </div>
       </div>
