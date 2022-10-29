@@ -6,9 +6,9 @@ import { FooterLinks } from '../../core/footer'
 import { HeroImageBackground } from '../../core/hero'
 import { HeatMap } from '../../core/map'
 
-import "./styles.css"
+import './styles.css'
 
-export const HomePage = route('/home', () => {
+export const HomePage = route('/', () => {
   return (
     <div>
       <HeroImageBackground />
@@ -31,32 +31,57 @@ export const HomePage = route('/home', () => {
         <TxList data={[]} />
       </Paper>
       <Title align="center" style={{ marginBottom: '40px' }}>
-            Currently Running Campaigns
+        Currently Running Campaigns
       </Title>
-      <Grid style={{ marginLeft: '40px', marginRight: '40px', marginBottom: '40px' }}>
+      <Grid
+        style={{
+          marginLeft: '40px',
+          marginRight: '40px',
+          marginBottom: '40px',
+        }}
+      >
         <Grid.Col span={4}>
-          <StatsRingCard title={'Campaign 1'} completed={3400} total={10500} stats={[]} agency="Agency 123" link="test.com"/>
+          <StatsRingCard
+            title={'Campaign 1'}
+            completed={3400}
+            total={10500}
+            stats={[]}
+            agency="Agency 123"
+            link="test.com"
+          />
         </Grid.Col>
         <Grid.Col span={4}>
-          <StatsRingCard title={'Campaign 2'} completed={450} total={1000} stats={[]} agency="Test" link="test.com"/>
+          <StatsRingCard
+            title={'Campaign 2'}
+            completed={450}
+            total={1000}
+            stats={[]}
+            agency="Test"
+            link="test.com"
+          />
         </Grid.Col>
         <Grid.Col span={4}>
-          <StatsRingCard title={'Campaign 3'} completed={1200} total={2000} stats={[]} agency="Red Cross" link="test.com"/>
+          <StatsRingCard
+            title={'Campaign 3'}
+            completed={1200}
+            total={2000}
+            stats={[]}
+            agency="Red Cross"
+            link="test.com"
+          />
         </Grid.Col>
       </Grid>
 
       <Title align="center" style={{ marginBottom: '40px' }}>
-            Realtime Crisis Heatmap
+        Realtime Crisis Heatmap
       </Title>
 
-        <HeatMap />
+      <HeatMap />
       <DashboardStatistics data={[]} />
 
-        
-        <FaqWithBg/>
+      <FaqWithBg />
 
-        <FooterLinks data={[]} />
-
+      <FooterLinks data={[]} />
     </div>
   )
 })

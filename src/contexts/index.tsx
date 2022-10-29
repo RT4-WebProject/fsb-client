@@ -26,7 +26,6 @@ const Context = createContext<IContext>({
 function useLoginCore(cb, ecb) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<any>(null)
-  const goto = useNavigate()
 
   const login = useCallback(
     (email, password) => {
@@ -37,8 +36,6 @@ function useLoginCore(cb, ecb) {
           localStorage.setItem('token', v.token)
           setLoading(false)
           if (cb) cb()
-          if (v.role === 'admin') goto('/admin')
-          else goto('/dash')
         })
         .catch(e => {
           setLoading(false)
@@ -85,6 +82,8 @@ export function ContextProvider({ children }) {
         .then(v => {
           setMe(v)
           setAuthetified(true)
+          if (v.role === 'admin') goto('/admin')
+          else goto('/dash')
         })
         .catch(() => {
           setAuthetified(false)
