@@ -30,7 +30,7 @@ export const HomePage = route('/home', () => {
       >
         <TxList data={[]} />
       </Paper>
-      <Title align="center" style={{ marginBottom: '80px' }}>
+      <Title align="center" style={{ marginBottom: '40px' }}>
             Currently Running Campaigns
       </Title>
       <Grid style={{ marginLeft: '40px', marginRight: '40px', marginBottom: '40px' }}>
@@ -44,6 +44,10 @@ export const HomePage = route('/home', () => {
           <StatsRingCard title={'Campaign 3'} completed={1200} total={2000} stats={[]} agency="Red Cross" link="test.com"/>
         </Grid.Col>
       </Grid>
+
+      <Title align="center" style={{ marginBottom: '40px' }}>
+            Realtime Crisis Heatmap
+      </Title>
 
         <HeatMap />
       <DashboardStatistics data={[]} />
