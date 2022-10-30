@@ -47,7 +47,7 @@ const useStyles = createStyles(theme => ({
   },
 
   highlight: {
-    color: theme.colors[theme.primaryColor][4],
+    // color: theme.colors[theme][4],
   },
 
   description: {
@@ -108,7 +108,12 @@ export function HeroImageBackground() {
       <div className={classes.inner}>
         <Title className={classes.title}>
           The Help Pool{' '}
-          <Text component="span" inherit className={classes.highlight}>
+          <Text
+            component="span"
+            inherit
+            className={classes.highlight}
+            color="orange"
+          >
             At time of CRISES
           </Text>
         </Title>

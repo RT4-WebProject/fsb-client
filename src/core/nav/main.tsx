@@ -57,9 +57,6 @@ export function Navbar() {
             <Anchor className={classes.link} component={Link} to="/campaigns">
               Campaigns
             </Anchor>
-            <Anchor className={classes.link} component={Link} to="/heat-map">
-              Heat Map
-            </Anchor>
           </Group>
 
           {authentified ? (
@@ -117,9 +114,6 @@ export function Navbar() {
           </Anchor>
           <Anchor className={classes.link} component={Link} to="/campaigns">
             Campaigns
-          </Anchor>
-          <Anchor className={classes.link} component={Link} to="/heat-map">
-            Heat Map
           </Anchor>
 
           <Divider
