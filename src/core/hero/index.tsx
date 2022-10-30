@@ -1,6 +1,14 @@
-import { Title, Text, Container, Button, Overlay, createStyles } from '@mantine/core';
+import {
+  Title,
+  Text,
+  Container,
+  Button,
+  Overlay,
+  createStyles,
+} from '@mantine/core'
+import { Link } from 'react-router-dom'
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
   wrapper: {
     position: 'relative',
     paddingTop: 180,
@@ -88,10 +96,10 @@ const useStyles = createStyles((theme) => ({
       backgroundColor: 'rgba(255, 255, 255, .45) !important',
     },
   },
-}));
+}))
 
 export function HeroImageBackground() {
-  const { classes, cx } = useStyles();
+  const { classes, cx } = useStyles()
 
   return (
     <div className={classes.wrapper}>
@@ -107,19 +115,31 @@ export function HeroImageBackground() {
 
         <Container size={640}>
           <Text size="lg" className={classes.description}>
-            People and agencies helping people at hard times, for a better and more secure world.
+            People and agencies helping people at hard times, for a better and
+            more secure world.
           </Text>
         </Container>
 
         <div className={classes.controls}>
-          <Button className={classes.control} variant="white" size="lg">
+          <Button
+            to="/agencies"
+            component={Link}
+            className={classes.control}
+            variant="white"
+            size="lg"
+          >
             Donate
           </Button>
-          <Button className={cx(classes.control, classes.secondaryControl)} size="lg">
+          <Button
+            to="/request"
+            component={Link}
+            className={cx(classes.control, classes.secondaryControl)}
+            size="lg"
+          >
             Agency Registration
           </Button>
         </div>
       </div>
     </div>
-  );
+  )
 }

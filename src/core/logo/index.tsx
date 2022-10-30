@@ -9,15 +9,15 @@ export function Logo() {
         justifyContent: 'center',
       }}
     >
-      <Image src="/favicon.svg" width={30} height={30} />
+      <Image src="/Vector.png" height={30} />
       <Text
         sx={{
           marginLeft: 10,
           fontSize: 20,
-          fontWeight: 800,
+          fontWeight: 700,
         }}
       >
-        Taiii
+        Spendenbox
       </Text>
     </Box>
   )
