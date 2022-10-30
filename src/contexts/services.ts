@@ -21,3 +21,23 @@ export const getAllAgencies = () =>
   createClient()
     .get('/agency')
     .then(res => res.data)
+
+export const createAgency = body =>
+  createClient()
+    .post('/agency', body)
+    .then(res => res.data)
+
+export const approveAgency = id =>
+  createClient()
+    .put('/agency/approve/' + id)
+    .then(res => res.data)
+
+export const createCampaign = body =>
+  createClient()
+    .post('/campaign', body)
+    .then(res => res.data)
+
+export const getMyCampaigns = () =>
+  createClient()
+    .get('/campaign')
+    .then(res => res.data)

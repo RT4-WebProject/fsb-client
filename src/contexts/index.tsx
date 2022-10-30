@@ -15,6 +15,9 @@ interface IContext {
   login: any
   logout: any
   getAllAgencies: any
+  createAgency: any
+  approveAgency: any
+  myCampaigns: any
 }
 
 const Context = createContext<IContext>({
@@ -23,6 +26,9 @@ const Context = createContext<IContext>({
   login: {},
   logout: {},
   getAllAgencies: {},
+  createAgency: {},
+  approveAgency: {},
+  myCampaigns: {},
 })
 
 function useLoginCore(cb, ecb) {
@@ -101,6 +107,140 @@ export function useGetAgenciesCore() {
   }
 }
 
+export function useMyCampaignsCore() {
+  const [createLoading, setCreateLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [createError, setCreateError] = useState<any>(null)
+  const [campaigns, setCampaigns] = useState<any>([])
+
+  const getCampaigns = useCallback(() => {
+    setLoading(true)
+    return api
+      .getMyCampaigns()
+      .then(v => {
+        setCampaigns(v)
+        setLoading(false)
+      })
+      .catch(e => {
+        setLoading(false)
+        setError(
+          e.response?.data?.message ? e.response.data.message : e.message
+        )
+      })
+  }, [setLoading, setError, setCampaigns])
+
+  const createCampaign = useCallback(
+    body => {
+      setLoading(true)
+      return api
+        .createCampaign(body)
+        .then(v => {
+          location.reload()
+
+          setCampaigns([...campaigns, v])
+          setCreateLoading(false)
+        })
+        .catch(e => {
+          setCreateLoading(false)
+          setCreateError(
+            e.response?.data?.message ? e.response.data.message : e.message
+          )
+        })
+    },
+    [setCreateError, setCreateLoading, setCampaigns]
+  )
+
+  return {
+    getCampaigns,
+    loading,
+    error,
+    campaigns,
+
+    createCampaign: {
+      create: createCampaign,
+      loading: createLoading,
+      error: createError,
+    },
+  }
+}
+
+export function useMyCampaigns() {
+  const { myCampaigns } = useContext(Context)
+  return myCampaigns
+}
+
+export function useCreateAgencyCore() {
+  const [loading, setLoading] = useState(false)
+  const [done, setDone] = useState(false)
+  const [error, setError] = useState<any>(null)
+
+  const create = useCallback(
+    body => {
+      setLoading(true)
+      return api
+        .createAgency(body)
+        .then(v => {
+          setDone(v.done)
+          setLoading(false)
+        })
+        .catch(e => {
+          setLoading(false)
+          setError(
+            e.response?.data?.message ? e.response.data.message : e.message
+          )
+        })
+    },
+    [setLoading, setError]
+  )
+
+  return {
+    done,
+    create,
+    loading,
+    error,
+  }
+}
+
+export function useApproveAgencyCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+
+  const approve = useCallback(
+    id => {
+      setLoading(true)
+      return api
+        .approveAgency(id)
+        .then(v => {
+          setLoading(false)
+        })
+        .catch(e => {
+          setLoading(false)
+          setError(
+            e.response?.data?.message ? e.response.data.message : e.message
+          )
+        })
+    },
+    [setLoading, setError]
+  )
+
+  return {
+    approve,
+    loading,
+    error,
+  }
+}
+
+export function useApproveAgency() {
+  const { approveAgency } = useContext(Context)
+  return approveAgency
+}
+
+export function useCreateAgency() {
+  const { createAgency } = useContext(Context)
+  return createAgency
+}
+
 export function useGetAllAgencies() {
   const { getAllAgencies } = useContext(Context)
   return getAllAgencies
@@ -111,6 +251,9 @@ export function ContextProvider({ children }) {
   const goto = useNavigate()
   const [authentified, setAuthetified] = useState<null | boolean>(null)
   const getAllAgencies = useGetAgenciesCore()
+  const createAgency = useCreateAgencyCore()
+  const approveAgency = useApproveAgencyCore()
+  const myCampaigns = useMyCampaignsCore()
 
   const login = useLoginCore(
     () => {
@@ -154,8 +297,26 @@ export function ContextProvider({ children }) {
   }, [setAuthetified, setMe])
 
   const value = useMemo(
-    () => ({ me, authentified, login, logout, getAllAgencies }),
-    [me, authentified, login, logout, getAllAgencies]
+    () => ({
+      me,
+      authentified,
+      login,
+      logout,
+      getAllAgencies,
+      createAgency,
+      approveAgency,
+      myCampaigns,
+    }),
+    [
+      me,
+      authentified,
+      login,
+      logout,
+      getAllAgencies,
+      createAgency,
+      approveAgency,
+      myCampaigns,
+    ]
   )
 
   return <Context.Provider value={value}>{children}</Context.Provider>

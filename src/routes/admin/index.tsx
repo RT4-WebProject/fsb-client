@@ -1,9 +1,10 @@
 import { route, Protected } from '@'
 import { useGetAllAgencies } from 'ctx'
 import { useEffect } from 'react'
+import { AgenciesList } from './agencies-list'
 
 function Main() {
-  const { getAgencies, loading, error, agencies } = useGetAllAgencies()
+  const { getAgencies, loading, agencies } = useGetAllAgencies()
   useEffect(() => {
     getAgencies()
   }, [])
@@ -12,13 +13,7 @@ function Main() {
 
   return (
     <div>
-      {JSON.stringify(agencies)}
-      Admin Dashboard Page
-      <br />
-      get list of requests
-      <br />
-      get list of agencies
-      <br />
+      <AgenciesList data={agencies} />
       get list of tx
       <br />
     </div>

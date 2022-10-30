@@ -1,6 +1,10 @@
-import { CampaignCard, DashboardStatistics, route, TxList } from '@'
+import {
+  CampaignCard as StatsRingCard,
+  DashboardStatistics,
+  route,
+  TxList,
+} from '@'
 import { Paper, Grid, Footer, Title, SimpleGrid } from '@mantine/core'
-import { StatsRingCard } from '../../core'
 import { FaqWithBg } from '../../core/faq'
 import { FeaturesAsymmetrical } from '../../core/features'
 import { FooterLinks } from '../../core/footer'
