@@ -4,6 +4,8 @@ import { Header } from './header'
 import { CreateCampaign } from '@'
 import { Container, Grid, Tabs } from '@mantine/core'
 import { StatsGroup } from '../../core'
+import { TxList } from './tx'
+import { Feedbacks } from './feedback'
 
 export const DashboardPage = route('/dash', () => {
   return (
@@ -79,13 +81,16 @@ export const DashboardPage = route('/dash', () => {
                   title: 'How Much You Raised',
                   description:
                     'Total amount of money raised by your Activities',
-                  stats: '1,000,000 $',
                 }}
               />
             </div>
           </Tabs.Panel>
-          <Tabs.Panel value="feedbacks">Feedbacks</Tabs.Panel>
-          <Tabs.Panel value="tx">Transactions</Tabs.Panel>
+          <Tabs.Panel value="feedbacks">
+            <Feedbacks />
+          </Tabs.Panel>
+          <Tabs.Panel value="tx">
+            <TxList />
+          </Tabs.Panel>
           <Tabs.Panel value="campaigns">
             <CampaignsList />
           </Tabs.Panel>

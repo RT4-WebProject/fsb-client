@@ -41,3 +41,48 @@ export const getMyCampaigns = () =>
   createClient()
     .get('/campaign')
     .then(res => res.data)
+
+export const getCampaigns = () =>
+  createClient()
+    .get('/campaigns/all')
+    .then(res => res.data)
+
+export const getAgencies = () =>
+  createClient()
+    .get('/agency')
+    .then(res => res.data)
+
+export const getAgencyById = id =>
+  createClient()
+    .get(`/agency/${id}`)
+    .then(res => res.data)
+
+export const getAgenciesCampaignsById = id =>
+  createClient()
+    .get(`/agency/campaign/${id}`)
+    .then(res => res.data)
+
+export const getAllCampaigns = () =>
+  createClient()
+    .get('/campaigns')
+    .then(res => res.data)
+
+export const createTx = body =>
+  createClient()
+    .post('/tx', body)
+    .then(res => res.data)
+
+export const getMyTx = () =>
+  createClient()
+    .get('/agency/tx/all')
+    .then(res => res.data)
+
+export const getRaised = () =>
+  createClient()
+    .get('/campaign/tx/raised')
+    .then(res => res.data)
+
+export const getCRaised = id =>
+  createClient()
+    .get('/campaign/tx/raised/' + id)
+    .then(res => res.data)

@@ -1,15 +1,12 @@
 import { route } from '@'
+import { Header } from './header'
+import { CampaignsList } from './campaigns-list'
 
 export const AgencyPage = route('/agencies/:id', () => {
   return (
     <div>
-      Agency Page
-      <br />
-      agency data
-      <br />
-      agency campaigns
-      <br />
-      active campaigns
+      <Header />
+      <CampaignsList />
       <br />
       feedbacks
       <br />

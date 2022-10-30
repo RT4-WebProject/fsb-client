@@ -8,12 +8,17 @@ import {
   ThemeIcon,
 } from '@mantine/core'
 import { IconColorSwatch } from '@tabler/icons'
+import { useModal } from '@'
+import { useGetCRaised } from 'ctx'
+import { useEffect } from 'react'
 
 interface CardGradientProps {
   title: string
   description: string
   withLink?: boolean
   goal: number
+  id
+  agency
 }
 
 const dollaFormatter = new Intl.NumberFormat('en-US', {
@@ -22,12 +27,21 @@ const dollaFormatter = new Intl.NumberFormat('en-US', {
 })
 
 export function Card({
+  id,
+  agency,
   title,
   description,
   withLink = true,
   goal,
 }: CardGradientProps) {
+  const { setOpened, setCampaign, setAgency, setTitle } = useModal()
   const { classes } = useStyles()
+  const { raised, getRaised } = useGetCRaised()
+
+  useEffect(() => {
+    getRaised(id)
+  }, [])
+
   return (
     <Paper withBorder radius="md" className={classes.card}>
       <ThemeIcon
@@ -53,9 +67,15 @@ export function Card({
           Campaign Goal
         </Text>
         <Text size="lg" weight={500}>
-          $5.431 / {dollaFormatter.format(goal)}
+          {dollaFormatter.format(raised[id])} / {dollaFormatter.format(goal)}
         </Text>
-        <Progress value={54.31} mt="md" size="lg" radius="xl" color="green" />
+        <Progress
+          value={(raised[id] / goal) * 100}
+          mt="md"
+          size="lg"
+          radius="xl"
+          color="green"
+        />
       </Box>
       {withLink ? (
         <Button
@@ -64,6 +84,12 @@ export function Card({
           }}
           variant="gradient"
           gradient={{ deg: 0, from: 'pink', to: 'orange' }}
+          onClick={() => {
+            setCampaign(id)
+            setAgency(agency)
+            setTitle(title)
+            setOpened(true)
+          }}
         >
           Donate to this campaign
         </Button>

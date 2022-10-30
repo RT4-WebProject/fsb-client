@@ -6,7 +6,7 @@ import {
   useMemo,
   useCallback,
 } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import * as api from './services'
 
 interface IContext {
@@ -18,6 +18,14 @@ interface IContext {
   createAgency: any
   approveAgency: any
   myCampaigns: any
+  getAllApprovedAgencies: any
+  getAgencyById: any
+  getAgencyCampaignsById: any
+  getAllCampaigns: any
+  createTx: any
+  getTx: any
+  getRaised: any
+  getCRaised: any
 }
 
 const Context = createContext<IContext>({
@@ -29,6 +37,14 @@ const Context = createContext<IContext>({
   createAgency: {},
   approveAgency: {},
   myCampaigns: {},
+  getAllApprovedAgencies: {},
+  getAgencyById: {},
+  getAgencyCampaignsById: {},
+  getAllCampaigns: {},
+  createTx: {},
+  getTx: {},
+  getCRaised: {},
+  getRaised: {},
 })
 
 function useLoginCore(cb, ecb) {
@@ -105,6 +121,40 @@ export function useGetAgenciesCore() {
     error,
     agencies,
   }
+}
+
+export function useGetApprovedAgenciesCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [agencies, setAgencies] = useState<any>(null)
+
+  const getAgencies = useCallback(() => {
+    setLoading(true)
+    return api
+      .getAgencies()
+      .then(v => {
+        setAgencies(v)
+        setLoading(false)
+      })
+      .catch(e => {
+        setLoading(false)
+        setError(
+          e.response?.data?.message ? e.response.data.message : e.message
+        )
+      })
+  }, [setLoading, setError, setAgencies])
+
+  return {
+    getAgencies,
+    loading,
+    error,
+    agencies,
+  }
+}
+
+export function useGetApprovedAgencies() {
+  const { getAllApprovedAgencies } = useContext(Context)
+  return getAllApprovedAgencies
 }
 
 export function useMyCampaignsCore() {
@@ -246,6 +296,254 @@ export function useGetAllAgencies() {
   return getAllAgencies
 }
 
+export function useGetAgencyByIdCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [agency, setAgency] = useState<any>(null)
+
+  const getAgency = useCallback(
+    id => {
+      setLoading(true)
+      return api
+        .getAgencyById(id)
+        .then(v => {
+          setAgency(v)
+          setLoading(false)
+        })
+        .catch(e => {
+          setLoading(false)
+          setError(
+            e.response?.data?.message ? e.response.data.message : e.message
+          )
+        })
+    },
+    [setLoading, setError, setAgency]
+  )
+
+  return {
+    getAgency,
+    loading,
+    error,
+    agency,
+  }
+}
+
+export function useGetAgencyById() {
+  const { getAgencyById } = useContext(Context)
+  return getAgencyById
+}
+
+export function useGetAgencyCampaignsByIdCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [campaigns, setCampaigns] = useState<any>(null)
+
+  const getCampaigns = useCallback(
+    id => {
+      setLoading(true)
+      return api
+        .getAgenciesCampaignsById(id)
+        .then(v => {
+          setCampaigns(v)
+          setLoading(false)
+        })
+        .catch(e => {
+          setLoading(false)
+          setError(
+            e.response?.data?.message ? e.response.data.message : e.message
+          )
+        })
+    },
+    [setLoading, setError, setCampaigns]
+  )
+
+  return {
+    campaigns,
+    loading,
+    error,
+    getCampaigns,
+  }
+}
+
+export function useGetAgencyCampaignsById() {
+  const { getAgencyCampaignsById } = useContext(Context)
+  return getAgencyCampaignsById
+}
+
+export function useGetAllCampaignsCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [campaigns, setCampaigns] = useState<any>(null)
+
+  const getCampaigns = useCallback(() => {
+    setLoading(true)
+    return api
+      .getAllCampaigns()
+      .then(v => {
+        setCampaigns(v)
+        setLoading(false)
+      })
+      .catch(e => {
+        setLoading(false)
+        setError(
+          e.response?.data?.message ? e.response.data.message : e.message
+        )
+      })
+  }, [setLoading, setError, setCampaigns])
+
+  return {
+    campaigns,
+    loading,
+    error,
+    getCampaigns,
+  }
+}
+
+export function useCreateTxCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+
+  const createTx = useCallback(
+    body => {
+      setLoading(true)
+      return api
+        .createTx(body)
+        .then(v => {
+          setLoading(false)
+          window.location = v.url
+        })
+        .catch(e => {
+          setLoading(false)
+          setError(
+            e.response?.data?.message ? e.response.data.message : e.message
+          )
+        })
+    },
+    [setLoading, setError]
+  )
+
+  return {
+    loading,
+    error,
+    createTx,
+  }
+}
+
+export function useCreateTx() {
+  const { createTx } = useContext(Context)
+  return createTx
+}
+
+export function useGetTxCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [tx, setTx] = useState<any>([])
+
+  const getTx = useCallback(() => {
+    setLoading(true)
+    return api
+      .getMyTx()
+      .then(v => {
+        setLoading(false)
+        setTx(v)
+      })
+      .catch(e => {
+        setLoading(false)
+        setError(
+          e.response?.data?.message ? e.response.data.message : e.message
+        )
+      })
+  }, [setLoading, setError])
+
+  return {
+    loading,
+    error,
+    getTx,
+    tx,
+  }
+}
+
+export function useGetTx() {
+  const { getTx } = useContext(Context)
+  return getTx
+}
+
+export function useGetRaisedCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [raised, setRaised] = useState<any>(0)
+
+  const getRaised = useCallback(() => {
+    setLoading(true)
+    return api
+      .getRaised()
+      .then(v => {
+        setLoading(false)
+        setRaised(v)
+      })
+      .catch(e => {
+        setLoading(false)
+        setError(
+          e.response?.data?.message ? e.response.data.message : e.message
+        )
+      })
+  }, [setLoading, setError])
+
+  return {
+    loading,
+    error,
+    getRaised,
+    raised,
+  }
+}
+
+export function useGetCRaised() {
+  const { getCRaised } = useContext(Context)
+  return getCRaised
+}
+
+export function useGetCRaisedCore() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<any>(null)
+  const [raised, setRaised] = useState<any>({})
+
+  const getRaised = useCallback(
+    id => {
+      setLoading(true)
+      return api
+        .getCRaised(id)
+        .then(v => {
+          setLoading(false)
+          setRaised(r => ({ ...r, [id]: v }))
+        })
+        .catch(e => {
+          setLoading(false)
+          setError(
+            e.response?.data?.message ? e.response.data.message : e.message
+          )
+        })
+    },
+    [setLoading, setError, setRaised]
+  )
+
+  return {
+    loading,
+    error,
+    getRaised,
+    raised,
+  }
+}
+
+export function useGetRaised() {
+  const { getRaised } = useContext(Context)
+  return getRaised
+}
+
+export function useGetAllCampaigns() {
+  const { getAllCampaigns } = useContext(Context)
+  return getAllCampaigns
+}
+
 export function ContextProvider({ children }) {
   const [me, setMe] = useState(null)
   const goto = useNavigate()
@@ -254,6 +552,14 @@ export function ContextProvider({ children }) {
   const createAgency = useCreateAgencyCore()
   const approveAgency = useApproveAgencyCore()
   const myCampaigns = useMyCampaignsCore()
+  const getAllApprovedAgencies = useGetApprovedAgenciesCore()
+  const getAgencyById = useGetAgencyByIdCore()
+  const getAgencyCampaignsById = useGetAgencyCampaignsByIdCore()
+  const getAllCampaigns = useGetAllCampaignsCore()
+  const createTx = useCreateTxCore()
+  const getTx = useGetTxCore()
+  const getRaised = useGetRaisedCore()
+  const getCRaised = useGetCRaisedCore()
 
   const login = useLoginCore(
     () => {
@@ -306,6 +612,14 @@ export function ContextProvider({ children }) {
       createAgency,
       approveAgency,
       myCampaigns,
+      getAllApprovedAgencies,
+      getAgencyById,
+      getAgencyCampaignsById,
+      getAllCampaigns,
+      getTx,
+      getCRaised,
+      createTx,
+      getRaised,
     }),
     [
       me,
@@ -316,6 +630,14 @@ export function ContextProvider({ children }) {
       createAgency,
       approveAgency,
       myCampaigns,
+      getAllApprovedAgencies,
+      getAgencyById,
+      getAgencyCampaignsById,
+      getAllCampaigns,
+      getRaised,
+      getTx,
+      createTx,
+      getCRaised,
     ]
   )
 

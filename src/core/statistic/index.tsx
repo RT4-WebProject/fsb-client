@@ -1,4 +1,6 @@
 import { createStyles, Text } from '@mantine/core'
+import { useEffect } from 'react'
+import { useGetRaised } from '../../contexts'
 
 const useStyles = createStyles(theme => ({
   root: {
@@ -57,15 +59,23 @@ const useStyles = createStyles(theme => ({
 }))
 
 interface StatsGroupProps {
-  data: { title: string; stats: string; description: string }
+  data: { title: string; description: string }
 }
 
 export function StatsGroup({ data }: StatsGroupProps) {
   const { classes } = useStyles()
+
+  const { raised, getRaised, loading } = useGetRaised()
+
+  useEffect(() => {
+    getRaised()
+  }, [])
+
+  if (loading) return null
   return (
     <div className={classes.root}>
       <div className={classes.stat}>
-        <Text className={classes.count}>{data.stats}</Text>
+        <Text className={classes.count}>{raised}</Text>
         <Text className={classes.title}>{data.title}</Text>
         <Text className={classes.description}>{data.description}</Text>
       </div>

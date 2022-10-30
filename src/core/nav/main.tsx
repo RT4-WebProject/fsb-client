@@ -9,6 +9,7 @@ import {
   Drawer,
   ScrollArea,
   NavLink,
+  Anchor,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Link } from 'react-router-dom'
@@ -47,18 +48,18 @@ export function Navbar() {
             spacing={0}
             className={classes.hiddenMobile}
           >
-            <a href="/" className={classes.link}>
+            <Anchor className={classes.link} component={Link} to="/">
               Home
-            </a>
-            <a href="#" className={classes.link}>
+            </Anchor>
+            <Anchor className={classes.link} component={Link} to="/agencies">
               Agencies
-            </a>
-            <a href="#" className={classes.link}>
+            </Anchor>
+            <Anchor className={classes.link} component={Link} to="/campaigns">
               Campaigns
-            </a>
-            <a href="#" className={classes.link}>
+            </Anchor>
+            <Anchor className={classes.link} component={Link} to="/heat-map">
               Heat Map
-            </a>
+            </Anchor>
           </Group>
 
           {authentified ? (
@@ -108,18 +109,18 @@ export function Navbar() {
             color={theme.colorScheme === 'dark' ? 'dark.5' : 'gray.1'}
           />
 
-          <a href="#" className={classes.link}>
+          <Anchor className={classes.link} component={Link} to="/">
             Home
-          </a>
-          <a href="#" className={classes.link}>
+          </Anchor>
+          <Anchor className={classes.link} component={Link} to="/agencies">
             Agencies
-          </a>
-          <a href="#" className={classes.link}>
+          </Anchor>
+          <Anchor className={classes.link} component={Link} to="/campaigns">
             Campaigns
-          </a>
-          <a href="#" className={classes.link}>
+          </Anchor>
+          <Anchor className={classes.link} component={Link} to="/heat-map">
             Heat Map
-          </a>
+          </Anchor>
 
           <Divider
             my="sm"

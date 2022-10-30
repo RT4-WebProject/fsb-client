@@ -1,10 +1,11 @@
 import { Container, Grid, Paper } from '@mantine/core'
 import { Card } from '@'
-import { useMyCampaigns } from 'ctx'
+import { useGetAllCampaigns } from 'ctx'
 import { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 export function CampaignsList() {
-  const { loading, campaigns, getCampaigns } = useMyCampaigns()
+  const { loading, campaigns, getCampaigns } = useGetAllCampaigns()
   useEffect(() => {
     getCampaigns()
   }, [])
@@ -18,10 +19,11 @@ export function CampaignsList() {
             <Grid.Col xs={12} sm={6} key={c.id}>
               <Card
                 id={c.id}
+                agency={c.launchedBy}
                 title={c.title}
                 description={c.description}
                 goal={c.goal}
-                withLink={false}
+                withLink
               />
             </Grid.Col>
           ))}

@@ -4,6 +4,7 @@ import App from './App'
 import './index.css'
 import { MantineProvider } from '@mantine/core'
 import { ContextProvider } from './contexts'
+import { ModalProvider } from '@'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -11,7 +12,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Router>
       <ContextProvider>
         <MantineProvider withGlobalStyles withNormalizeCSS>
-          <App />
+          <ModalProvider>
+            <App />
+          </ModalProvider>
         </MantineProvider>
       </ContextProvider>
     </Router>
