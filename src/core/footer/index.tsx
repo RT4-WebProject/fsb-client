@@ -1,12 +1,20 @@
-import { createStyles, Text, Container, ActionIcon, Group } from '@mantine/core';
-import { IconBrandTwitter, IconBrandYoutube, IconBrandInstagram } from '@tabler/icons';
-import { MantineLogo } from '@mantine/ds';
+import { createStyles, Text, Container, ActionIcon, Group } from '@mantine/core'
+import {
+  IconBrandTwitter,
+  IconBrandYoutube,
+  IconBrandInstagram,
+} from '@tabler/icons'
+import { MantineLogo } from '@mantine/ds'
+import { Logo } from '../logo'
 
-const useStyles = createStyles((theme) => ({
+const useStyles = createStyles(theme => ({
   footer: {
     paddingTop: theme.spacing.xl * 2,
     paddingBottom: theme.spacing.xl * 2,
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+    backgroundColor:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[6]
+        : theme.colors.gray[0],
     borderTop: `1px solid ${
       theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
     }`,
@@ -56,7 +64,10 @@ const useStyles = createStyles((theme) => ({
 
   link: {
     display: 'block',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[1] : theme.colors.gray[6],
+    color:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[1]
+        : theme.colors.gray[6],
     fontSize: theme.fontSizes.sm,
     paddingTop: 3,
     paddingBottom: 3,
@@ -92,47 +103,47 @@ const useStyles = createStyles((theme) => ({
 
   social: {
     [theme.fn.smallerThan('sm')]: {
-      marginTop: theme.spacing.xs
+      marginTop: theme.spacing.xs,
     },
   },
-}));
+}))
 
 interface FooterLinksProps {
   data: {
-    title: string;
-    links: { label: string; link: string }[];
-  }[];
+    title: string
+    links: { label: string; link: string }[]
+  }[]
 }
 
 export function FooterLinks({ data }: FooterLinksProps) {
-  const { classes } = useStyles();
+  const { classes } = useStyles()
 
-  const groups = data.map((group) => {
+  const groups = data.map(group => {
     const links = group.links.map((link, index) => (
       <Text<'a'>
         key={index}
         className={classes.link}
         component="a"
         href={link.link}
-        onClick={(event) => event.preventDefault()}
+        onClick={event => event.preventDefault()}
       >
         {link.label}
       </Text>
-    ));
+    ))
 
     return (
       <div className={classes.wrapper} key={group.title}>
         <Text className={classes.title}>{group.title}</Text>
         {links}
       </div>
-    );
-  });
+    )
+  })
 
   return (
     <footer className={classes.footer}>
       <Container className={classes.inner}>
         <div className={classes.logo}>
-          <MantineLogo size={30} />
+          <Logo />
           <Text size="xs" color="dimmed" className={classes.description}>
             The world has never been better!
           </Text>
@@ -141,7 +152,7 @@ export function FooterLinks({ data }: FooterLinksProps) {
       </Container>
       <Container className={classes.afterFooter}>
         <Text color="dimmed" size="sm">
-          © Taiii. All rights reserved.
+          © Spendendbox. All rights reserved.
         </Text>
 
         <Group spacing={0} className={classes.social} position="right" noWrap>
@@ -157,5 +168,5 @@ export function FooterLinks({ data }: FooterLinksProps) {
         </Group>
       </Container>
     </footer>
-  );
+  )
 }
