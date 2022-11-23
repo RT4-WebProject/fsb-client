@@ -38,7 +38,6 @@ export function DonationForm(props) {
           createTx({
             ...form.values,
             ...props,
-            title: ``,
           })
         })}
       >
