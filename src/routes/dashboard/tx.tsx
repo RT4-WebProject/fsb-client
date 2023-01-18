@@ -22,9 +22,10 @@ function Row(row: DataFormat) {
       <td>{row.campaign}</td>
       <td>
         {row.tx ? (
-          <a target="__blank" href={`https://goerli.etherscan.io/tx/${row.tx}`}>
+          /*<a target="__blank" href={`https://goerli.etherscan.io/tx/${row.tx}`}>
             EtherScan
-          </a>
+          </a>*/
+          row.tx
         ) : null}
       </td>
     </tr>
@@ -76,8 +77,8 @@ export function TxList() {
                     id={t.id}
                     from={t.from}
                     amount={t.amount}
-                    campaign={t.campaignId ? t.campaignId : t.agencyID}
-                    tx={t.receiptBlockchain}
+                    campaign={t.campaignId?.name ? t.campaignId?.name : t.agencyID?.name}
+                    tx={t.pk}
                   />
                 ))}
             </tbody>
