@@ -84,7 +84,8 @@ export const HomePage = route('/', () => {
       </SimpleGrid>
 
       <Title align="center" style={{ marginBottom: '40px' }}>
-        Realtime Crisis Heatmap
+        Realtime Crisis Heatmap<br/>
+        <small style={{fontSize: "12pt"}}>Based on Twitter's data.</small>
       </Title>
 
       <HeatMap />

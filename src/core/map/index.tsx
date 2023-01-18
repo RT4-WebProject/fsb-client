@@ -2,30 +2,53 @@ import { ReactWorldCountriesMap } from "react-world-countries-map"
 
 const data =
 [
-      { country: "ua", value: 100 }, // china
-      { country: "ge", value: 100 }, // india
-      { country: "ye", value: 100 }, // india
-      { country: "cm", value: 100 }, // india
-      { country: "ru", value: 90 }, // india
-      { country: "by", value: 90 }, // india
-      { country: "kz", value: 90 }, // india
-      { country: "tw", value: 90 }, // india
-      { country: "tn", value: 90 }, // india
-      { country: "ml", value: 80 }, // india
-      { country: "mr", value: 80 }, // india
-      { country: "sy", value: 90 }, // india
-      { country: "ps", value: 85 }, // india
-      { country: "ml", value: 80 }, // india
-      { country: "ir", value: 80 }, // india
-      { country: "eh", value: 90 }, // india
-      { country: "et", value: 90 }, // india
-      { country: "ly", value: 70 }, // india
-      { country: "dz", value: 70 }, // india
-      { country: "iq", value: 85 }, // india
-      { country: "ss", value: 85 }, // india
-      { country: "sd", value: 80 }, // india
-      { country: "td", value: 70 }, // india
-      { country: "ne", value: 70 }, // india
+    { country: "ve", value: 100 },
+    { country: "sy", value: 100 },
+    { country: "ye", value: 100 },
+    { country: "af", value: 100 },
+    { country: "ht", value: 100 },
+    { country: "zw", value: 100 },
+    { country: "so", value: 100 },
+    { country: "ss", value: 100 },
+    { country: "sd", value: 100 },
+    { country: "kp", value: 100 },
+
+      { country: "ua", value: 100 },
+      { country: "ge", value: 100 }, 
+      { country: "ye", value: 100 }, 
+      { country: "cm", value: 100 }, 
+      { country: "ru", value: 90 }, 
+      { country: "by", value: 90 }, 
+      { country: "kz", value: 90 }, 
+      { country: "in", value: 90 }, 
+      { country: "np", value: 90 }, 
+      { country: "tw", value: 90 }, 
+      { country: "tn", value: 75 }, 
+      { country: "ml", value: 80 }, 
+      { country: "mr", value: 80 }, 
+      { country: "sy", value: 90 }, 
+      { country: "ps", value: 85 }, 
+      { country: "ml", value: 80 }, 
+      { country: "ir", value: 80 }, 
+      { country: "eh", value: 90 }, 
+      { country: "et", value: 90 }, 
+      { country: "ly", value: 75 }, 
+      { country: "iq", value: 85 }, 
+      { country: "ss", value: 85 }, 
+      { country: "sd", value: 80 }, 
+      { country: "td", value: 75 }, 
+      { country: "ne", value: 75 }, 
+
+      { country: "BI", value: "80"},
+      { country: "CF", value: "80"},
+      { country: "ER", value: "80"},
+      { country: "LR", value: "80"},
+      { country: "MW", value: "80"},
+      { country: "MZ", value: "80"},
+      { country: "SL", value: "80"},
+      { country: "BF", value: "80"},
+      { country: "EG", value: "70"},
+
 
 
 
@@ -50,6 +73,8 @@ const data =
 
 export function HeatMap() {
     return (
+
     <ReactWorldCountriesMap color="red" size="xl" data={data} />
+
     )
 }
